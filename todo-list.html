@@ -4,12 +4,26 @@
         <title>Arrays</title>
     </head>
     <body>
+        <div style="text-align: center;">
+            <h3>Todo List Practice</h3>
+            <input class="todo-input" type="text" placeholder="Todo name">
+            <button onclick="
+                AddTodo()
+            ">Add</button>
+        </div>
         
-        <script>
-            const myArray = [3, 1, 10, 20, 30]
-            myArray.splice(1, 2);
-            console.log(myArray);
 
+
+
+        <script>
+            let todoList = []
+            function AddTodo() {
+
+                let valor = document.querySelector(".todo-input").value;
+                todoList.push(valor)
+                console.log(todoList);
+            }
+           
         </script>
     </body>
 </html>
