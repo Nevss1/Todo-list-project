@@ -2,28 +2,81 @@
 <html>
     <head>
         <title>Arrays</title>
+        <style>
+            body {
+                font-family: Arial;
+            }
+            .todo-input{
+                padding: 10px;
+                font-size: 18px;
+                border: 1px #153585 solid;
+                border-radius: 6px;
+            }
+            .date-input{
+                padding: 13px;
+                font-size: 14px;
+                border-radius: 6px;
+                border: none;
+            }
+            .add-button{
+                background-color: #0c43cc;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 6px;
+                cursor: pointer;
+            }
+            .js-todo-list{
+                text-align: center;
+            }
+        </style>
     </head>
-    <body>
-        <div style="text-align: center;">
-            <h3>Todo List Practice</h3>
+    <body style="background-image: linear-gradient(to bottom, #608CFB, #153585);
+    height: 100vh; color: white;">
+        <h3 style="text-align: center;">Todo List Practice</h3>
+        <div style="display: flex; justify-content: center; gap: 5px;">
+            
             <input class="todo-input" type="text" placeholder="Todo name">
-            <button onclick="
+            <input class="date-input" type="date">
+            <button class="add-button" onclick="
                 AddTodo()
-            ">Add</button>
+            ">Add task</button>
         </div>
-        
-
-
+        <div class="js-todo-list"></div>
 
         <script>
-            let todoList = []
+            let todoList = [];
+            renderTodolist();
             function AddTodo() {
-
-                let valor = document.querySelector(".todo-input").value;
-                todoList.push(valor)
-                console.log(todoList);
+                const inputElement = document.querySelector(".todo-input");
+                const inputDate = document.querySelector(".date-input")
+                const name = inputElement.value;
+                if (name === '') {
+                    return;
+                }
+                const dueDate = inputDate.value;
+                todoList.push({name, dueDate}); // shortcut for {name: name}
+                inputElement.value = '';
+                inputDate.value = '';
+                renderTodolist();
             }
-           
+            
+            function renderTodolist() {
+                let todoListHTML = '';
+                for (let i = 0; i < todoList.length; i++) {
+                    const todoObject = todoList[i];
+                    // const name = todoObject.name; -> shortcut
+                    const {name} = todoObject;
+                    const {dueDate} = todoObject;
+                    const html = `<p>${name} ${dueDate}<button onclick="
+                    todoList.splice(${i}, 1);
+                    renderTodolist();
+                    ">Delete</button></p>`;
+                    todoListHTML += html;
+                    
+                }
+                document.querySelector(".js-todo-list").innerHTML = todoListHTML;
+            };
         </script>
     </body>
 </html>
